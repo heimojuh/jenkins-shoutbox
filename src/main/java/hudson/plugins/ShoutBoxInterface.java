@@ -1,4 +1,4 @@
-package hudson.plugins.shoutbox;
+package hudson.plugins;
 
 import java.util.List;
 
@@ -8,33 +8,33 @@ import java.util.List;
  * Date: 27.11.2010
  * Time: 14:55:04
  */
-public interface ShoutBox {
+public interface ShoutBoxInterface {
 
     /**
      * Gives list of messages
      *
      * @return List of shoutmessages
      */
-    List<ShoutMessage> getShouts();
+    List<ShoutMessageInterface> getShouts();
 
     /**
      * Get's messages sorted
      * @return
      */
-    List<ShoutMessage> getShoutsSorted();
+    List<ShoutMessageInterface> getShoutsSorted();
 
     /**
      *  Returns latest shoutMessage
-      * @return Latest (most recent) ShoutMessage
+      * @return Latest (most recent) ShoutMessageInterface
      */
-    ShoutMessage getLatest();
+    ShoutMessageInterface getLatest();
 
     /**
      * Get's N amount of latest shouts
      * @param n amount of shouts
      * @return List of shouts
      */
-    List<ShoutMessage> getNLatestShouts(int n);
+    List<ShoutMessageInterface> getNLatestShouts(int n);
 
 
     /**
@@ -42,7 +42,7 @@ public interface ShoutBox {
      * @param n
      * @return
      */
-    List<ShoutMessage> getNLatestShoutsSorted(int n);
+    List<ShoutMessageInterface> getNLatestShoutsSorted(int n);
 
 
 }
