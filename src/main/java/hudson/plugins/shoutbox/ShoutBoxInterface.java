@@ -1,4 +1,4 @@
-package hudson.plugins;
+package hudson.plugins.shoutbox;
 
 import java.util.List;
 

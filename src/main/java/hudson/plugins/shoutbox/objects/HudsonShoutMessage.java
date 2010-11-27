@@ -1,6 +1,6 @@
-package hudson.plugins.objects;
+package hudson.plugins.shoutbox.objects;
 
-import hudson.plugins.ShoutMessageInterface;
+import hudson.plugins.shoutbox.ShoutMessageInterface;
 
 import java.util.Date;
 

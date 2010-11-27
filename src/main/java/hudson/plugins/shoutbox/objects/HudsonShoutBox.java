@@ -1,10 +1,9 @@
-package hudson.plugins.objects;
+package hudson.plugins.shoutbox.objects;
 
-import hudson.plugins.ShoutBoxInterface;
-import hudson.plugins.ShoutMessageInterface;
+import hudson.plugins.shoutbox.ShoutBoxInterface;
+import hudson.plugins.shoutbox.ShoutMessageInterface;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 

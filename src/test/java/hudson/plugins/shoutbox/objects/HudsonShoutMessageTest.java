@@ -1,4 +1,4 @@
-package hudson.plugins.objects;
+package hudson.plugins.shoutbox.objects;
 
 import junit.framework.TestCase;
 import org.junit.Test;

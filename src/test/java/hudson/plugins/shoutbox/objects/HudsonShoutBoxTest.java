@@ -1,6 +1,6 @@
-package hudson.plugins.objects;
+package hudson.plugins.shoutbox.objects;
 
-import hudson.plugins.ShoutMessageInterface;
+import hudson.plugins.shoutbox.ShoutMessageInterface;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
