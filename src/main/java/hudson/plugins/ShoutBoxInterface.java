@@ -44,5 +44,11 @@ public interface ShoutBoxInterface {
      */
     List<ShoutMessageInterface> getNLatestShoutsSorted(int n);
 
+    /**
+     * Adds shout to shout box
+     * @param shout
+     */
+    public void addShout(ShoutMessageInterface shout);
+
 
 }
