@@ -16,6 +16,8 @@ public class HudsonShoutMessage implements ShoutMessageInterface {
     String User;
     Date date;
 
+
+
     HudsonShoutMessage(Date date, String user, String message){
         this.MessageText = message;
         this.User = user;
@@ -37,16 +39,7 @@ public class HudsonShoutMessage implements ShoutMessageInterface {
         return this.date;
     }
 
-    public int compareTo(ShoutMessageInterface o) {
-        final int EQUAL = 0;
-        if (this == o)
-            return EQUAL;
-
-        return this.getDate().compareTo(o.getDate());
-
-    }
-
-     @Override
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -66,5 +59,14 @@ public class HudsonShoutMessage implements ShoutMessageInterface {
         result = 31 * result + (User != null ? User.hashCode() : 0);
         result = 31 * result + (date != null ? date.hashCode() : 0);
         return result;
+    }
+
+    public int compareTo(ShoutMessageInterface o) {
+        final int EQUAL = 0;
+        if (this == o)
+            return EQUAL;
+
+        return this.getDate().compareTo(o.getDate());
+
     }
 }
