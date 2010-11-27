@@ -50,11 +50,12 @@ public class HudsonShoutBox implements ShoutBoxInterface {
 
     }
 
-    public List<ShoutMessageInterface> getNLatestShouts(int n) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    public List<ShoutMessageInterface> getNLatestShoutsSorted(int n) {
+        Collections.sort(this.listofshouts);
+        List<ShoutMessageInterface> smallist = this.listofshouts.subList(this.listofshouts.size()-n,this.listofshouts.size());
+        Collections.sort(smallist);
+        return smallist;
     }
 
-    public List<ShoutMessageInterface> getNLatestShoutsSorted(int n) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
+    
 }

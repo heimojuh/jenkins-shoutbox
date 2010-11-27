@@ -30,14 +30,6 @@ public interface ShoutBoxInterface {
     ShoutMessageInterface getLatest();
 
     /**
-     * Get's N amount of latest shouts
-     * @param n amount of shouts
-     * @return List of shouts
-     */
-    List<ShoutMessageInterface> getNLatestShouts(int n);
-
-
-    /**
      * Guess what this does?
      * @param n
      * @return

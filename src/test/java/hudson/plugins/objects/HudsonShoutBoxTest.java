@@ -1,5 +1,6 @@
 package hudson.plugins.objects;
 
+import hudson.plugins.ShoutMessageInterface;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
@@ -7,6 +8,7 @@ import org.junit.Test;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -77,21 +79,26 @@ public class HudsonShoutBoxTest extends TestCase {
         }
 
         assertEquals("2010-12-11-13.00.00", this.formatter.format(box.getLatest().getDate()));
-
-        
-
-
     }
 
     @Test
     public void testGetNLatestShouts() throws Exception {
-        throw new Exception();
-    }
+        HudsonShoutBox box = new HudsonShoutBox();
+        for (HudsonShoutMessage m : this.listofmessages)
+        {
+            box.addShout(m);
+        }
 
-    @Test
-    public void testGetNLatestShoutsSorted() throws Exception {
-        throw new Exception();
-    }
+        List<ShoutMessageInterface> sortedlist = box.getNLatestShoutsSorted(3);
 
+        for (ShoutMessageInterface f : sortedlist)
+        {
+            System.out.println(this.formatter.format(f.getDate()));
+        }
+        System.out.println(sortedlist.size());
+        assertEquals("2010-12-11-13.00.00",this.formatter.format(sortedlist.get(2).getDate()));
+        assertEquals("2010-11-14-13.00.00",this.formatter.format(sortedlist.get(1).getDate()));
+        assertEquals("2010-11-12-13.00.00",this.formatter.format(sortedlist.get(0).getDate())); 
+    }
 
 }
