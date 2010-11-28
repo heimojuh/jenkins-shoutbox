@@ -19,7 +19,9 @@ import java.util.Collection;
 
 public class HudsonShoutBoxPlugin extends JobProperty<AbstractProject<?,?>> {
 
-   @DataBoundConstructor
+   int numberOfShoutsShown;
+
+   
    public HudsonShoutBoxPlugin()
    {
 
@@ -46,6 +48,19 @@ public class HudsonShoutBoxPlugin extends JobProperty<AbstractProject<?,?>> {
         }
 
         @Override
+        public JobProperty<?> newInstance(StaplerRequest req, JSONObject formData) throws FormException {
+            if (formData.isNullObject()) {
+	                return null;
+	        }
+            JSONObject parameterized = formData.getJSONObject("shoutbox");
+
+	        if (parameterized.isNullObject()) {
+	                return null;
+	        }
+            return new HudsonShoutBoxPlugin();    //To change body of overridden methods use File | Settings | File Templates.
+        }
+
+        @Override
         public boolean isApplicable(Class<? extends Job> jobType) {
             return AbstractProject.class.isAssignableFrom(jobType);
         }
@@ -53,6 +68,8 @@ public class HudsonShoutBoxPlugin extends JobProperty<AbstractProject<?,?>> {
         public String getDisplayName() {
             return "ShoutBox";
         }
+
+
 
 
     }
