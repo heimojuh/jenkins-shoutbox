@@ -7,8 +7,7 @@ import org.kohsuke.stapler.HttpResponse;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -20,6 +19,8 @@ public class ShoutBoxAction implements ProminentProjectAction {
 
     ShoutBoxInterface shoutbox;
     SimpleDateFormat dateformat = new SimpleDateFormat("dd.MM HH:mm:ss");
+    
+    private int numberofshoutsshown = 15;
 
 
     public ShoutBoxAction(ShoutBoxInterface box) {
@@ -35,13 +36,15 @@ public class ShoutBoxAction implements ProminentProjectAction {
     public void doPrintShouts(org.kohsuke.stapler.StaplerRequest req, org.kohsuke.stapler.StaplerResponse rsp) throws IOException
     {
 
-       StringBuilder sb = new StringBuilder();
+       StringBuffer sb = new StringBuffer();
        sb.append("<table border=\"1\">");
+      
+           for (ShoutMessageInterface message : this.shoutbox.getNLatestShoutsSorted(numberofshoutsshown))
+           {
+                sb.append("<tr><td id=\"time\">").append(this.dateformat.format(message.getDate())).append("</td><td id=\"user\">").append(message.getUser()).append("</td><td id=\"shout\">").append(message.getMessageText()).append("</td></tr>\n");
+           }
 
-       for (ShoutMessageInterface message : this.getShouts())
-       {
-           sb.append("<tr><td id=\"time\">").append(this.dateformat.format(message.getDate())).append("</td><td id=\"user\">").append(message.getUser()).append("</td><td id=\"shout\">").append(message.getMessageText()).append("</td></tr>\n");
-       }
+       
        sb.append("</table>");
        rsp.getWriter().print(sb.toString());
        rsp.getWriter().flush();
@@ -64,7 +67,7 @@ public class ShoutBoxAction implements ProminentProjectAction {
 
     public List<ShoutMessageInterface> getShouts()
     {
-        return this.shoutbox.getShouts();
+        return this.shoutbox.getNLatestShoutsSorted(numberofshoutsshown);
     }
 
 

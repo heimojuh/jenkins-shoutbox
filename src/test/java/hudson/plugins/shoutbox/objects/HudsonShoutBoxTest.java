@@ -98,7 +98,30 @@ public class HudsonShoutBoxTest extends TestCase {
         System.out.println(sortedlist.size());
         assertEquals("2010-12-11-13.00.00",this.formatter.format(sortedlist.get(2).getDate()));
         assertEquals("2010-11-14-13.00.00",this.formatter.format(sortedlist.get(1).getDate()));
-        assertEquals("2010-11-12-13.00.00",this.formatter.format(sortedlist.get(0).getDate())); 
+        assertEquals("2010-11-12-13.00.00",this.formatter.format(sortedlist.get(0).getDate()));
+
+
+       sortedlist = box.getNLatestShoutsSorted(6);
+       System.out.println(sortedlist.size());
+
+        for (ShoutMessageInterface f : sortedlist)
+        {
+            System.out.println(this.formatter.format(f.getDate()));
+        }
+       assertEquals("2010-12-11-13.00.00",this.formatter.format(sortedlist.get(sortedlist.size()-1).getDate()));
+       assertEquals("2010-11-14-13.00.00",this.formatter.format(sortedlist.get(sortedlist.size()-2).getDate()));
+       assertEquals("2010-11-12-13.00.00",this.formatter.format(sortedlist.get(sortedlist.size()-3).getDate()));
+
+       sortedlist = box.getNLatestShoutsSorted(0);
+       assertTrue(sortedlist.isEmpty());
+
+       sortedlist = box.getNLatestShoutsSorted(40);
+       assertEquals("2010-12-11-13.00.00",this.formatter.format(sortedlist.get(sortedlist.size()-1).getDate()));
+       assertEquals("2010-11-14-13.00.00",this.formatter.format(sortedlist.get(sortedlist.size()-2).getDate()));
+       assertEquals("2010-11-12-13.00.00",this.formatter.format(sortedlist.get(sortedlist.size()-3).getDate()));
+
+
+
     }
 
 }

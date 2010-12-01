@@ -15,16 +15,20 @@ import java.util.List;
  */
 public class HudsonShoutBox implements ShoutBoxInterface {
 
-    private ArrayList<ShoutMessageInterface> listofshouts;
+    private final List<ShoutMessageInterface> listofshouts = Collections.synchronizedList(new ArrayList<ShoutMessageInterface>());
 
     public HudsonShoutBox() {
-        this.listofshouts = new ArrayList<ShoutMessageInterface>();
 
     }
 
-    public void addShout(ShoutMessageInterface shout)
+    public synchronized void addShout(ShoutMessageInterface shout)
     {
-        this.listofshouts.add(shout);
+
+        synchronized(this.listofshouts)
+        {
+            this.listofshouts.add(shout);
+        }
+        
     }
 
     public List<ShoutMessageInterface> getShouts() {
@@ -32,7 +36,7 @@ public class HudsonShoutBox implements ShoutBoxInterface {
     }
 
     public List<ShoutMessageInterface> getShoutsSorted() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return null;  
     }
 
     /**
@@ -49,10 +53,28 @@ public class HudsonShoutBox implements ShoutBoxInterface {
 
     }
 
-    public List<ShoutMessageInterface> getNLatestShoutsSorted(int n) {
-        Collections.sort(this.listofshouts);
-        List<ShoutMessageInterface> smallist = this.listofshouts.subList(this.listofshouts.size()-n,this.listofshouts.size());
-        Collections.sort(smallist);
+    public synchronized List<ShoutMessageInterface> getNLatestShoutsSorted(int n) {
+
+        if (n >= this.listofshouts.size())
+        {
+                synchronized(this.listofshouts)
+                {
+                    Collections.sort(this.listofshouts);
+                }
+                return  this.listofshouts;
+        }
+        if (n == 0)
+            return new ArrayList<ShoutMessageInterface>();
+
+            List<ShoutMessageInterface> smallist;
+
+
+            smallist = this.listofshouts.subList(this.listofshouts.size()-n,this.listofshouts.size());
+            synchronized(this.listofshouts)
+            {
+                Collections.sort(smallist);
+            }
+       
         return smallist;
     }
 
