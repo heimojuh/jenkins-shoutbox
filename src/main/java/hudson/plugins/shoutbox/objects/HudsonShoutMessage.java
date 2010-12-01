@@ -12,16 +12,16 @@ import java.util.Date;
  */
 public class HudsonShoutMessage implements ShoutMessageInterface {
 
-    String MessageText;
-    String User;
-    Date date;
+    private final String MessageText;
+    private final String User;
+    private final Date date;
 
 
 
-    HudsonShoutMessage(Date date, String user, String message){
+    public HudsonShoutMessage(Date date, String user, String message){
         this.MessageText = message;
         this.User = user;
-        this.date = date;
+        this.date = (Date) date.clone(); 
 
     }
 
@@ -36,7 +36,7 @@ public class HudsonShoutMessage implements ShoutMessageInterface {
     }
 
     public Date getDate() {
-        return this.date;
+        return (Date) this.date.clone();
     }
 
     @Override

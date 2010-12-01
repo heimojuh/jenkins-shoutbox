@@ -2,6 +2,7 @@ package hudson.plugins.shoutbox;
 
 import hudson.Extension;
 import hudson.model.*;
+import hudson.plugins.shoutbox.objects.HudsonShoutBox;
 import hudson.tasks.*;
 import net.sf.json.JSONObject;
 import org.kohsuke.stapler.DataBoundConstructor;
@@ -19,9 +20,6 @@ import java.util.Collection;
 
 public class HudsonShoutBoxPlugin extends JobProperty<AbstractProject<?,?>> {
 
-   int numberOfShoutsShown;
-
-   
    public HudsonShoutBoxPlugin()
    {
 
@@ -30,17 +28,17 @@ public class HudsonShoutBoxPlugin extends JobProperty<AbstractProject<?,?>> {
     @Override
     public Collection<? extends Action> getJobActions(AbstractProject<?, ?> job) {
         ArrayList<Action> c = new ArrayList<Action>();
-        c.add(new ShoutBoxAction());
+        c.add(new ShoutBoxAction(new HudsonShoutBox()));
         return c;    //To change body of overridden methods use File | Settings | File Templates.
     }
 
-    @Extension
+
    public static final DescriptorImpl DESCRIPTOR = new DescriptorImpl();
 
+    @Extension
 
     public static final class DescriptorImpl extends JobPropertyDescriptor {
         // no longer in use but kept for backward compatibility
-        private transient String tracWebsite;
 
         public DescriptorImpl() {
             super(HudsonShoutBoxPlugin.class);
@@ -57,7 +55,7 @@ public class HudsonShoutBoxPlugin extends JobProperty<AbstractProject<?,?>> {
 	        if (parameterized.isNullObject()) {
 	                return null;
 	        }
-            return new HudsonShoutBoxPlugin();    //To change body of overridden methods use File | Settings | File Templates.
+            return new HudsonShoutBoxPlugin();    
         }
 
         @Override
