@@ -38,7 +38,7 @@ public class ShoutBoxAction implements ProminentProjectAction {
 
        StringBuffer sb = new StringBuffer();
        sb.append("<table border=\"1\">");
-      
+
            for (ShoutMessageInterface message : this.shoutbox.getNLatestShoutsSorted(numberofshoutsshown))
            {
                 sb.append("<tr><td id=\"time\">").append(this.dateformat.format(message.getDate())).append("</td><td id=\"user\">").append(message.getUser()).append("</td><td id=\"shout\">").append(message.getMessageText()).append("</td></tr>\n");

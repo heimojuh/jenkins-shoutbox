@@ -6,6 +6,7 @@ import hudson.plugins.shoutbox.ShoutMessageInterface;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Created by IntelliJ IDEA.
@@ -15,7 +16,8 @@ import java.util.List;
  */
 public class HudsonShoutBox implements ShoutBoxInterface {
 
-    private final List<ShoutMessageInterface> listofshouts = Collections.synchronizedList(new ArrayList<ShoutMessageInterface>());
+
+    private final CopyOnWriteArrayList<ShoutMessageInterface> listofshouts = new CopyOnWriteArrayList<ShoutMessageInterface>();
 
     public HudsonShoutBox() {
 
@@ -23,15 +25,11 @@ public class HudsonShoutBox implements ShoutBoxInterface {
 
     public synchronized void addShout(ShoutMessageInterface shout)
     {
-
-        synchronized(this.listofshouts)
-        {
             this.listofshouts.add(shout);
-        }
-        
     }
 
     public List<ShoutMessageInterface> getShouts() {
+        
         return this.listofshouts;
     }
 
@@ -48,19 +46,22 @@ public class HudsonShoutBox implements ShoutBoxInterface {
         if (this.getShouts().isEmpty())
             return null;
 
-        Collections.sort(this.listofshouts);                    //sorts the
+        //Collections.sort(this.listofshouts);                    //sorts the
         return this.listofshouts.get(this.listofshouts.size()-1);
 
     }
 
+    /**
+     * Lists are naturally sorted for our needs, since new stuff is always appended to the end. How very
+     * weird thinking from me.
+     * 
+     * @param n - how many shouts we want
+     * @return
+     */
     public synchronized List<ShoutMessageInterface> getNLatestShoutsSorted(int n) {
 
         if (n >= this.listofshouts.size())
         {
-                synchronized(this.listofshouts)
-                {
-                    Collections.sort(this.listofshouts);
-                }
                 return  this.listofshouts;
         }
         if (n == 0)
@@ -68,13 +69,8 @@ public class HudsonShoutBox implements ShoutBoxInterface {
 
             List<ShoutMessageInterface> smallist;
 
-
             smallist = this.listofshouts.subList(this.listofshouts.size()-n,this.listofshouts.size());
-            synchronized(this.listofshouts)
-            {
-                Collections.sort(smallist);
-            }
-       
+
         return smallist;
     }
 

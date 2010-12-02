@@ -35,19 +35,19 @@ public class HudsonShoutBoxTest extends TestCase {
         Date date5 = formatter.parse("2010-11-12-13.00.00");
         Date date6 = formatter.parse("2010-11-14-13.00.00");
 
-        HudsonShoutMessage m1 = new HudsonShoutMessage(date1,"user1","message1");
-        HudsonShoutMessage m2 = new HudsonShoutMessage(date2,"user2","message3");
         HudsonShoutMessage m3 = new HudsonShoutMessage(date3,"user3","message3");
-        HudsonShoutMessage m4 = new HudsonShoutMessage(date4,"user4","message4");
+        HudsonShoutMessage m1 = new HudsonShoutMessage(date1,"user1","message1");
+        HudsonShoutMessage m2 = new HudsonShoutMessage(date2,"user2","message2");
         HudsonShoutMessage m5 = new HudsonShoutMessage(date5,"user5","message5");
         HudsonShoutMessage m6 = new HudsonShoutMessage(date6,"user6","message6");
+        HudsonShoutMessage m4 = new HudsonShoutMessage(date4,"user4","message4");
 
+        listofmessages.add(m3);
         listofmessages.add(m1);
         listofmessages.add(m2);
-        listofmessages.add(m3);
-        listofmessages.add(m4);
         listofmessages.add(m5);
         listofmessages.add(m6);
+        listofmessages.add(m4);
     }
 
     @Test
