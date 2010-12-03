@@ -1,17 +1,17 @@
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout"
          xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:i="jelly:fmt" xmlns:local="local">
-
-    <div id="shoutbox">
-        <table border="1">
-            <tr><td colspan="3">Shoutbox</td></tr>
+<link type="text/css" rel="stylesheet" href="/plugin/shoutbox/css/stylesheet.css"></link>
+    <div class="shoutbox">
+        <table class="shoutbox">
+            <tr><td colspan="3" id="heading">Shoutbox</td></tr>
             <tr>
                 <td colspan="4">
-                    <div id="contentshout"></div>
+                    <div class="shoutbox" id="contentshout"></div>
                 </td>
             </tr>
             <tr>
-                <td><input type="text" id="shoutinguser" name="shoutinguser" value=""/></td>
-                <td><input type="text" id="text" name="text"/></td>
+                <td><label for="shoutinguser">Your name</label></td><td><input type="text" id="shoutinguser" name="shoutinguser" value=""/></td>
+                <td><input type="text" id="shouttext" name="shouttext"/></td>
                 <td><input type="submit" onClick="shout()" value="shout!"/></td>
             </tr>
     </table>
@@ -20,19 +20,17 @@
 
     function shout()
     {
-       var params = 'shoutmessage=' + $('text').value + '&amp;' +'username=' + $('shoutinguser').value;
-        new Ajax.Request('shoutbox/shout',
+       var params = 'shoutmessage=' + $('shouttext').value + '&amp;' +'username=' + $('shoutinguser').value;
+        new Ajax.Updater('contentshout','shoutbox/shout',
           {
             parameters: params,
             method: 'get',
           });
 
-        $('text').value = '';
-
-        new Ajax.Updater('contentshout', 'shoutbox/printShouts/', { method: 'get' });
+        $('shouttext').value = '';
     }
 
-    new Ajax.PeriodicalUpdater('contentshout', 'shoutbox/printShouts/',
+    new Ajax.PeriodicalUpdater('contentshout', 'shoutbox/shout',
   {
     method: 'get',
     

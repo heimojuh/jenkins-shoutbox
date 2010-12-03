@@ -1,0 +1,33 @@
+.shoutbox {     border-style: solid;
+                border-width: thin;
+}
+table.shoutbox { border-style: none;
+                 width:500px;
+}
+
+table#contents {    background-color: lightgray;
+
+}
+
+td#time {   width: 100px;
+
+}
+
+input#shoutinguser {    width: 100px;
+
+}
+
+
+input#shouttext {      width: 100%;
+
+}
+td#heading {
+
+}
+
+td#user { font-style: italic;
+          border-right-width: 1px;
+          border-right-style: solid;
+          border-left-width: 1px;
+          border-left-style: solid;
+}

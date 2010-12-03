@@ -3,6 +3,7 @@ package hudson.plugins.shoutbox;
 import hudson.model.Hudson;
 import hudson.model.ProminentProjectAction;
 import hudson.plugins.shoutbox.objects.HudsonShoutMessage;
+import org.jsoup.Jsoup;
 import org.kohsuke.stapler.HttpResponse;
 
 import java.io.IOException;
@@ -33,31 +34,31 @@ public class ShoutBoxAction implements ProminentProjectAction {
         this.shoutbox.addShout(new HudsonShoutMessage(new Date(), username, shout));
     }
 
-    public void doPrintShouts(org.kohsuke.stapler.StaplerRequest req, org.kohsuke.stapler.StaplerResponse rsp) throws IOException
+     public  void doShout(org.kohsuke.stapler.StaplerRequest req, org.kohsuke.stapler.StaplerResponse rsp) throws IOException
     {
+       String shoutmessage = req.getParameter("shoutmessage");
+       String shoutuser = req.getParameter("username");
+       if (shoutmessage == null || shoutmessage.isEmpty() || shoutuser == null || shoutuser.isEmpty())
+       {
 
+       }
+       else
+       {
+           //TODO: Handle special commands /t and /c
+           this.addShout(shoutuser, Jsoup.parse(shoutmessage).text());
+       }    
        StringBuffer sb = new StringBuffer();
-       sb.append("<table border=\"1\">");
+       sb.append("<table class=\"shoutbox\" id=\"contents\">");
 
-           for (ShoutMessageInterface message : this.shoutbox.getNLatestShoutsSorted(numberofshoutsshown))
+       for (ShoutMessageInterface message : this.shoutbox.getNLatestShoutsSorted(numberofshoutsshown))
            {
                 sb.append("<tr><td id=\"time\">").append(this.dateformat.format(message.getDate())).append("</td><td id=\"user\">").append(message.getUser()).append("</td><td id=\"shout\">").append(message.getMessageText()).append("</td></tr>\n");
            }
 
-       
+
        sb.append("</table>");
        rsp.getWriter().print(sb.toString());
        rsp.getWriter().flush();
-       
-    }
-
-     public  void doShout(org.kohsuke.stapler.StaplerRequest req, org.kohsuke.stapler.StaplerResponse rsp)
-    {
-        String shoutmessage = req.getParameter("shoutmessage");
-        String shoutuser = req.getParameter("username");
-        if (shoutmessage == null || shoutmessage.isEmpty() || shoutuser == null || shoutuser.isEmpty())
-            return;
-        this.addShout(shoutuser,shoutmessage);
     }
 
     public ShoutBoxInterface getShoutbox()

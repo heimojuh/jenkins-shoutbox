@@ -4,7 +4,6 @@ import hudson.plugins.shoutbox.ShoutBoxInterface;
 import hudson.plugins.shoutbox.ShoutMessageInterface;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -25,6 +24,7 @@ public class HudsonShoutBox implements ShoutBoxInterface {
 
     public synchronized void addShout(ShoutMessageInterface shout)
     {
+
             this.listofshouts.add(shout);
     }
 
