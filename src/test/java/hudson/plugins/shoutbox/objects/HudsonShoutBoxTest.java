@@ -1,6 +1,6 @@
 package hudson.plugins.shoutbox.objects;
 
-import hudson.plugins.shoutbox.ShoutMessageInterface;
+
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
@@ -89,9 +89,9 @@ public class HudsonShoutBoxTest extends TestCase {
             box.addShout(m);
         }
 
-        List<ShoutMessageInterface> sortedlist = box.getNLatestShoutsSorted(3);
+        List<HudsonShoutMessage> sortedlist = box.getNLatestShoutsSorted(3);
 
-        for (ShoutMessageInterface f : sortedlist)
+        for (HudsonShoutMessage f : sortedlist)
         {
             System.out.println(this.formatter.format(f.getDate()));
         }
@@ -104,7 +104,7 @@ public class HudsonShoutBoxTest extends TestCase {
        sortedlist = box.getNLatestShoutsSorted(6);
        System.out.println(sortedlist.size());
 
-        for (ShoutMessageInterface f : sortedlist)
+        for (HudsonShoutMessage f : sortedlist)
         {
             System.out.println(this.formatter.format(f.getDate()));
         }

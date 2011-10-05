@@ -18,11 +18,33 @@
     </div>
     <script>
 
+    var printer = function(json) {
+
+    var myjson = eval('('+ json+ ')');
+
+    $('contentshout').update();
+
+    myjson.listofshouts.forEach(
+        function(item) {
+            var shoutdiv = document.createElement('div');
+            $(shoutdiv).update("<b>"+item.User+": </b>"+item.MessageText+" : "+item.date);
+           $('contentshout').appendChild(shoutdiv);
+
+        });
+
+    };
+
     function shout()
     {
        var params = 'shoutmessage=' + $('shouttext').value + '&amp;' +'username=' + $('shoutinguser').value;
-        new Ajax.Updater('contentshout','shoutbox/shout',
+        new Ajax.Request('shoutbox/shout',
           {
+
+            onSuccess: function(transport, json) {
+                printer(transport.responseText);
+            },
+
+
             parameters: params,
             method: 'get',
           });
@@ -30,12 +52,12 @@
         $('shouttext').value = '';
     }
 
-    new Ajax.PeriodicalUpdater('contentshout', 'shoutbox/shout',
+    new Ajax.Request('shoutbox/shout',
   {
     method: 'get',
-    
-    frequency: 1,
-    decay: 2
+    onSuccess: function(transport, json) {
+        printer(transport.responseText);
+    }
   });
 
     </script>

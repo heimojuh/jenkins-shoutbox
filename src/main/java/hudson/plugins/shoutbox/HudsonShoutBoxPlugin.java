@@ -36,7 +36,6 @@ public class HudsonShoutBoxPlugin extends JobProperty<AbstractProject<?,?>> {
    public static final DescriptorImpl DESCRIPTOR = new DescriptorImpl();
 
     @Extension
-
     public static final class DescriptorImpl extends JobPropertyDescriptor {
         // no longer in use but kept for backward compatibility
 
@@ -66,10 +65,6 @@ public class HudsonShoutBoxPlugin extends JobProperty<AbstractProject<?,?>> {
         public String getDisplayName() {
             return "ShoutBox";
         }
-
-
-
-
     }
 
 

@@ -1,7 +1,5 @@
 package hudson.plugins.shoutbox.objects;
 
-import hudson.plugins.shoutbox.ShoutMessageInterface;
-
 import java.util.Date;
 
 /**
@@ -10,7 +8,7 @@ import java.util.Date;
  * Date: 27.11.2010
  * Time: 17:49:08
  */
-public class HudsonShoutMessage implements ShoutMessageInterface {
+public class HudsonShoutMessage {
 
     private final String MessageText;
     private final String User;
@@ -61,7 +59,7 @@ public class HudsonShoutMessage implements ShoutMessageInterface {
         return result;
     }
 
-    public int compareTo(ShoutMessageInterface o) {
+    public int compareTo(HudsonShoutMessage o) {
         final int EQUAL = 0;
         if (this == o)
             return EQUAL;

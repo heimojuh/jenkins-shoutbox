@@ -1,7 +1,9 @@
 package hudson.plugins.shoutbox;
 
+import com.google.gson.Gson;
 import hudson.model.Hudson;
 import hudson.model.ProminentProjectAction;
+import hudson.plugins.shoutbox.objects.HudsonShoutBox;
 import hudson.plugins.shoutbox.objects.HudsonShoutMessage;
 import org.jsoup.Jsoup;
 import org.kohsuke.stapler.HttpResponse;
@@ -18,13 +20,13 @@ import java.util.*;
  */
 public class ShoutBoxAction implements ProminentProjectAction {
 
-    ShoutBoxInterface shoutbox;
+    HudsonShoutBox shoutbox;
     SimpleDateFormat dateformat = new SimpleDateFormat("dd.MM HH:mm:ss");
     
     private int numberofshoutsshown = 15;
 
 
-    public ShoutBoxAction(ShoutBoxInterface box) {
+    public ShoutBoxAction(HudsonShoutBox box) {
         this.shoutbox = box;
         System.out.println("ShoutBox added");
     }
@@ -46,27 +48,18 @@ public class ShoutBoxAction implements ProminentProjectAction {
        {
            //TODO: Handle special commands /t and /c
            this.addShout(shoutuser, Jsoup.parse(shoutmessage).text());
-       }    
-       StringBuffer sb = new StringBuffer();
-       sb.append("<table class=\"shoutbox\" id=\"contents\">");
-
-       for (ShoutMessageInterface message : this.shoutbox.getNLatestShoutsSorted(numberofshoutsshown))
-           {
-                sb.append("<tr><td id=\"time\">").append(this.dateformat.format(message.getDate())).append("</td><td id=\"user\">").append(message.getUser()).append("</td><td id=\"shout\">").append(message.getMessageText()).append("</td></tr>\n");
-           }
-
-
-       sb.append("</table>");
-       rsp.getWriter().print(sb.toString());
+       }
+       Gson g = new Gson();
+       rsp.getWriter().print(g.toJson((HudsonShoutBox) shoutbox));
        rsp.getWriter().flush();
     }
 
-    public ShoutBoxInterface getShoutbox()
+    public HudsonShoutBox getShoutbox()
     {
         return this.shoutbox;
     }
 
-    public List<ShoutMessageInterface> getShouts()
+    public List<HudsonShoutMessage> getShouts()
     {
         return this.shoutbox.getNLatestShoutsSorted(numberofshoutsshown);
     }

@@ -1,8 +1,5 @@
 package hudson.plugins.shoutbox.objects;
 
-import hudson.plugins.shoutbox.ShoutBoxInterface;
-import hudson.plugins.shoutbox.ShoutMessageInterface;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -13,35 +10,28 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * Date: 27.11.2010
  * Time: 19:08:41
  */
-public class HudsonShoutBox implements ShoutBoxInterface {
+public class HudsonShoutBox {
 
 
-    private final CopyOnWriteArrayList<ShoutMessageInterface> listofshouts = new CopyOnWriteArrayList<ShoutMessageInterface>();
+    private final CopyOnWriteArrayList<HudsonShoutMessage> listofshouts =
+            new CopyOnWriteArrayList<HudsonShoutMessage>();
 
     public HudsonShoutBox() {
 
     }
 
-    public synchronized void addShout(ShoutMessageInterface shout)
+    public synchronized void addShout(HudsonShoutMessage shout)
     {
 
             this.listofshouts.add(shout);
     }
 
-    public List<ShoutMessageInterface> getShouts() {
+    public List<HudsonShoutMessage> getShouts() {
         
         return this.listofshouts;
     }
 
-    public List<ShoutMessageInterface> getShoutsSorted() {
-        return null;  
-    }
-
-    /**
-     * ShoutMessageInterface forces items to be comparable, so we can sort without problems
-     * @return
-     */
-    public ShoutMessageInterface getLatest() {
+    public HudsonShoutMessage getLatest() {
 
         if (this.getShouts().isEmpty())
             return null;
@@ -58,16 +48,16 @@ public class HudsonShoutBox implements ShoutBoxInterface {
      * @param n - how many shouts we want
      * @return
      */
-    public synchronized List<ShoutMessageInterface> getNLatestShoutsSorted(int n) {
+    public synchronized List<HudsonShoutMessage> getNLatestShoutsSorted(int n) {
 
         if (n >= this.listofshouts.size())
         {
                 return  this.listofshouts;
         }
         if (n == 0)
-            return new ArrayList<ShoutMessageInterface>();
+            return new ArrayList<HudsonShoutMessage>();
 
-            List<ShoutMessageInterface> smallist;
+            List<HudsonShoutMessage> smallist;
 
             smallist = this.listofshouts.subList(this.listofshouts.size()-n,this.listofshouts.size());
 
